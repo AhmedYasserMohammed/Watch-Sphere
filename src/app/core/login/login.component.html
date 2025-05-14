@@ -19,6 +19,14 @@
         </div>
       }
 
+      @if(failedLogin)
+          {
+        <div class="validation-error">
+            <i class="bi bi-exclamation-triangle"></i>
+            <span>Either email or password is incorrect</span>
+        </div>
+      }
+
         <div class="form-group">
           <label for="email">email</label>
           <div class="input-wrapper">

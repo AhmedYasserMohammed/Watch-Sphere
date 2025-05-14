@@ -59,7 +59,11 @@ export class RegisterComponent {
     "https://media.themoviedb.org/t/p/w440_and_h660_face/vGYJRor3pCyjbaCpJKC39MpJhIT.jpg",
   ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigateByUrl('/profile');
+    }
+  }
 
   // Initialize form with validators
   registrationForm = new FormGroup({
@@ -109,7 +113,7 @@ export class RegisterComponent {
             console.log("Registration successful. Navigating to payment...");
             this.router.navigateByUrl('/pay');
           },
-          error: (e) => { 
+          error: (e) => {
             this.erroMessage = e.code;
             this.isLoading = false;
           },
