@@ -296,6 +296,8 @@ export class WatchComponent implements OnInit, OnDestroy, AfterViewInit {
   private onPlayerError(event: any): void {
     console.error('YouTube Player Error:', event);
     this.playerLoading = false;
+    this.goToWatchPage(this.currentVideo!);
+
   }
 
   /**

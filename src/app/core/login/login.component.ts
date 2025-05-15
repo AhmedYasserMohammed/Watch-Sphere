@@ -16,7 +16,12 @@ export class LoginComponent {
   isSubmitted = false;
   isLoading = false;
   erroMessage: string | null = null;
-  constructor(private router: Router, private auth: AuthService) { }
+  failedLogin: boolean = false
+  constructor(private router: Router, private auth: AuthService) {
+    if(auth.isAuthenticated()) {
+      this.router.navigateByUrl('/profile');
+    }
+  }
 
   protected images: string[] = [
     "https://media.themoviedb.org/t/p/w440_and_h660_face/vxMeUZ46wMYijcPSYxPCrD1ZHgx.jpg",
@@ -91,7 +96,8 @@ export class LoginComponent {
         },
         error: (e) => {
           this.erroMessage = e.error?.message || 'Login failed';
-          console.log(rawForm.email!, rawForm.password!);
+          this.failedLogin = true;
+          this.isLoading = false;
         }
       });
 
@@ -107,7 +113,7 @@ export class LoginComponent {
 
   //     this.authService.login(rawForm.email!, rawForm.password!)
   //       .subscribe({
-  //         next: () => { 
+  //         next: () => {
   //           console.log("Registration successful. Navigating...");this.router.navigateByUrl('/profile') },
   //         error: (e) => { this.erroMessage = e.code; console.log(rawForm.password!, rawForm.email!) }
   //       });
